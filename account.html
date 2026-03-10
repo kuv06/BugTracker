@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Create Account — Bug Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     ACCOUNT CREATION PAGE (STANDALONE)
+═══════════════════════════════════════════════════════════ -->
+<div style="min-height:100vh;display:grid;grid-template-columns:1fr 1fr;background:var(--parch);">
+  
+  <!-- LEFT: ACCOUNT FORM -->
+  <div style="background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 48px;border-right:3px double var(--border);position:relative;">
+    <div style="position:absolute;inset:12px;border:1px solid var(--border2);pointer-events:none;"></div>
+    
+    <div style="position:relative;z-index:1;width:100%;max-width:360px;">
+      <!-- Header -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:36px;">
+        <div style="width:52px;height:52px;border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--parch2);font-family:'Playfair Display',serif;font-size:18px;font-weight:800;color:var(--gold2);box-shadow:0 0 0 4px var(--parch2),0 0 0 6px var(--border);">🐛</div>
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--ink2);letter-spacing:.5px;">Bug<span style="color:var(--sienna);font-style:italic;">Tracker</span></div>
+        </div>
+      </div>
+      
+      <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--ink2);margin-bottom:6px;line-height:1.2;">Create Account</div>
+      <div style="font-size:13px;color:var(--ink3);margin-bottom:28px;font-style:italic;">Join the Bug Tracking Bureau</div>
+      <span style="color:var(--gold);font-size:18px;letter-spacing:4px;display:block;text-align:center;margin:16px 0;">— ✦ —</span>
+      
+      <!-- Form Fields -->
+      <div style="margin-bottom:18px;">
+        <label style="display:block;font-family:'Courier Prime',monospace;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">First Name</label>
+        <input class="form-input" id="a-fname" placeholder="John"/>
+      </div>
+      
+      <div style="margin-bottom:18px;">
+        <label style="display:block;font-family:'Courier Prime',monospace;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Last Name</label>
+        <input class="form-input" id="a-lname" placeholder="Doe"/>
+      </div>
+      
+      <div style="margin-bottom:18px;">
+        <label style="display:block;font-family:'Courier Prime',monospace;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Email Address</label>
+        <input class="form-input" id="a-email" type="email" placeholder="you@company.com"/>
+      </div>
+      
+      <div style="margin-bottom:18px;">
+        <label style="display:block;font-family:'Courier Prime',monospace;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Username</label>
+        <input class="form-input" id="a-username" placeholder="johndoe"/>
+        <div class="reg-hint">3+ characters, letters, numbers, dots only</div>
+      </div>
+      
+      <div style="margin-bottom:18px;">
+        <label style="display:block;font-family:'Courier Prime',monospace;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Password</label>
+        <div style="position:relative;">
+          <input class="form-input" id="a-pwd" type="password" placeholder="••••••••••" style="width:100%;"/>
+          <span class="pwd-toggle" id="a-pwd-eye" onclick="togglePwd('a-pwd','a-pwd-eye')">👁</span>
+        </div>
+        <div id="pwdStrengthAccount" style="display:none;margin-top:7px;">
+          <div class="reg-pwd-strength">
+            <div class="reg-pwd-bar">
+              <div class="reg-pwd-fill" id="pwdFillAccount" style="width:0%;background:var(--rust);"></div>
+            </div>
+            <div class="reg-pwd-label" id="pwdLabelAccount">—</div>
+          </div>
+        </div>
+      </div>
+      
+      <div style="margin-bottom:18px;">
+        <label style="display:block;font-family:'Courier Prime',monospace;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Confirm Password</label>
+        <div style="position:relative;">
+          <input class="form-input" id="a-pwd2" type="password" placeholder="••••••••••"/>
+          <span class="pwd-toggle" id="a-pwd2-eye" onclick="togglePwd('a-pwd2','a-pwd2-eye')">👁</span>
+        </div>
+      </div>
+      
+      <div style="margin-bottom:18px;">
+        <label style="display:block;font-family:'Courier Prime',monospace;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;">Role</label>
+        <select class="form-select" id="a-role">
+          <option value="">Select a role...</option>
+          <option value="developer">Developer</option>
+          <option value="tester">Tester</option>
+          <option value="user">User</option>
+        </select>
+      </div>
+      
+      <div class="reg-terms">
+        <input type="checkbox" id="a-terms" style="accent-color:var(--gold);cursor:pointer;"/>
+        <label for="a-terms" style="cursor:pointer;font-size:12px;color:var(--ink3);font-style:italic;">I agree to the Terms of Service and Privacy Policy</label>
+      </div>
+      
+      <button class="btn btn-primary btn-full" onclick="doCreateAccount()" style="margin-top:14px;width:100%;justify-content:center;">
+        Create Account →
+      </button>
+      
+
+    </div>
+  </div>
+
+  <!-- RIGHT: BENEFITS & FEATURES -->
+  <div style="background:var(--ink2);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 48px;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background-image:radial-gradient(ellipse at 20% 20%,rgba(200,149,42,.08) 0%,transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(139,69,19,.1) 0%,transparent 60%);"></div>
+    
+    <div style="position:relative;z-index:1;text-align:center;max-width:420px;">
+      <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;opacity:.8;">Welcome Aboard</div>
+      
+      <div style="font-family:'Playfair Display',serif;font-size:clamp(40px,5vw,64px);font-weight:800;line-height:.95;color:var(--parch);margin-bottom:6px;letter-spacing:-1px;">
+        Join the<br><em style="font-style:italic;color:var(--gold);display:block;">Registry</em>
+      </div>
+      
+      <div style="width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:20px 0;opacity:.3;"></div>
+      
+      <div style="font-family:'Playfair Display',serif;font-size:13px;font-style:italic;color:rgba(245,237,214,.45);margin:16px 0 32px;line-height:1.7;">
+        Create your account in moments and start managing bugs today. Get full access to bug tracking, team collaboration, and comprehensive analytics.
+      </div>
+      
+      <!-- Features -->
+      <div style="display:flex;flex-direction:column;gap:20px;margin:28px 0;">
+        <div style="display:flex;gap:14px;align-items:flex-start;text-align:left;">
+          <div style="font-size:28px;flex-shrink:0;">📋</div>
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--parch);margin-bottom:4px;">Track Issues</div>
+            <div style="font-size:12px;color:rgba(245,237,214,.55);line-height:1.5;">Monitor bugs from filing to resolution with full audit trails and status history.</div>
+          </div>
+        </div>
+        
+        <div style="display:flex;gap:14px;align-items:flex-start;text-align:left;">
+          <div style="font-size:28px;flex-shrink:0;">👥</div>
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--parch);margin-bottom:4px;">Collaborate</div>
+            <div style="font-size:12px;color:rgba(245,237,214,.55);line-height:1.5;">Assign tasks, add comments, and communicate with your team seamlessly.</div>
+          </div>
+        </div>
+        
+        <div style="display:flex;gap:14px;align-items:flex-start;text-align:left;">
+          <div style="font-size:28px;flex-shrink:0;">📊</div>
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--parch);margin-bottom:4px;">Analytics</div>
+            <div style="font-size:12px;color:rgba(245,237,214,.55);line-height:1.5;">Gain insights with comprehensive reporting and interactive dashboards.</div>
+          </div>
+        </div>
+        
+        <div style="display:flex;gap:14px;align-items:flex-start;text-align:left;">
+          <div style="font-size:28px;flex-shrink:0;">🔐</div>
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--parch);margin-bottom:4px;">Security</div>
+            <div style="font-size:12px;color:rgba(245,237,214,.55);line-height:1.5;">Enterprise-grade security with role-based access control and encryption.</div>
+          </div>
+        </div>
+      </div>
+      
+      <div style="display:inline-block;border:3px double var(--gold);padding:10px 20px;margin-top:32px;color:var(--gold);font-family:'Courier Prime',monospace;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;transform:rotate(-3deg);opacity:.7;">Official Registry Member</div>
+    </div>
+  </div>
+</div>
+
+<!-- Media Query Adjustment -->
+<style>
+  @media(max-width:800px){
+    body > div {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
+
+<script>
+/* ═══ TOAST ═══ */
+function toast(msg,type='i'){
+  const ic={s:'✓',e:'✕',i:'◆',w:'⚠'};
+  const d=document.createElement('div');
+  d.className=`toast t-${type}`;
+  d.innerHTML=`<span class="t-ico">${ic[type]||'◆'}</span><span class="t-msg">${msg}</span>`;
+  document.getElementById('toastWrap').appendChild(d);
+  setTimeout(()=>d.remove(),4200);
+}
+
+/* ═══ ACCOUNT STORE (localStorage) ═══ */
+let accounts = [];
+
+function loadAccounts() {
+  const stored = localStorage.getItem('bugTrackerAccounts');
+  if (stored) {
+    try { accounts = JSON.parse(stored); } 
+    catch (e) { accounts = []; }
+  }
+}
+
+function saveAccounts() {
+  localStorage.setItem('bugTrackerAccounts', JSON.stringify(accounts));
+}
+
+loadAccounts();
+
+/* ═══ PASSWORD STRENGTH ═══ */
+document.addEventListener('DOMContentLoaded', ()=>{
+  const pwdInput = document.getElementById('a-pwd');
+  if (pwdInput) {
+    pwdInput.addEventListener('input', ()=>{
+      const val = pwdInput.value;
+      const bar  = document.getElementById('pwdFillAccount');
+      const lbl  = document.getElementById('pwdLabelAccount');
+      const wrap = document.getElementById('pwdStrengthAccount');
+      if (!val) { wrap.style.display='none'; return; }
+      wrap.style.display='flex';
+      let score = 0;
+      if (val.length >= 6)  score++;
+      if (val.length >= 10) score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+      const levels = [
+        { w:'20%',  col:'var(--rust)',   t:'Weak'   },
+        { w:'40%',  col:'var(--sienna)', t:'Fair'   },
+        { w:'60%',  col:'#A0832A',       t:'Good'   },
+        { w:'80%',  col:'var(--olive)',  t:'Strong' },
+        { w:'100%', col:'#3a7d44',       t:'Excellent'},
+      ];
+      const lvl = levels[Math.min(score, levels.length) - 1] || levels[0];
+      bar.style.width      = lvl.w;
+      bar.style.background = lvl.col;
+      lbl.style.color      = lvl.col;
+      lbl.textContent      = lvl.t;
+    });
+  }
+});
+
+/* ═══ PASSWORD VISIBILITY TOGGLE ═══ */
+function togglePwd(inputId, eyeId) {
+  const inp = document.getElementById(inputId);
+  const eye = document.getElementById(eyeId);
+  if (!inp) return;
+  const isHidden = inp.type === 'password';
+  inp.type   = isHidden ? 'text' : 'password';
+  eye.textContent = isHidden ? '🙈' : '👁';
+}
+
+/* ═══ ACCOUNT CREATION ═══ */
+function doCreateAccount() {
+  const fname = document.getElementById('a-fname').value.trim();
+  const lname = document.getElementById('a-lname').value.trim();
+  const email = document.getElementById('a-email').value.trim();
+  const uname = document.getElementById('a-username').value.trim();
+  const role  = document.getElementById('a-role').value;
+  const pwd   = document.getElementById('a-pwd').value;
+  const pwd2  = document.getElementById('a-pwd2').value;
+  const terms = document.getElementById('a-terms').checked;
+
+  // Validation
+  if (!fname || !lname)        { toast('Please enter your full name','e'); return; }
+  if (!email || !email.includes('@')) { toast('Please enter a valid email address','e'); return; }
+  if (!uname || uname.length < 3)    { toast('Username must be at least 3 characters','e'); return; }
+  if (!/^[a-zA-Z0-9.]+$/.test(uname)){ toast('Username: letters, numbers and dots only','e'); return; }
+  if (!role)                         { toast('Please select a role','e'); return; }
+  if (!pwd || pwd.length < 6)        { toast('Password must be at least 6 characters','e'); return; }
+  if (pwd !== pwd2)                  { toast('Passwords do not match','e'); return; }
+  if (!terms)                        { toast('Please accept the Terms of Service','e'); return; }
+
+  // Duplicate check
+  if (accounts.find(a => a.username === uname)) { toast('Username already taken — choose another','e'); return; }
+  if (accounts.find(a => a.email === email))     { toast('Email already registered — sign in instead','e'); return; }
+
+  // Save account
+  const newAccount = { username: uname, email, password: pwd, role, firstName: fname, lastName: lname };
+  accounts.push(newAccount);
+  saveAccounts();
+
+  toast(`Account created successfully! Redirecting...`,'s');
+
+  // Store credentials for one-time auto-login on the login page
+  try {
+    localStorage.setItem('bugTrackerAutoLogin', JSON.stringify({ 
+      username: uname, 
+      password: pwd, 
+      role,
+      firstName: fname,
+      lastName: lname
+    }));
+  } catch (e) { /* ignore storage errors */ }
+
+  // Redirect to index.html after brief delay
+  setTimeout(() => {
+    window.location.href = 'index.html';
+  }, 1000);
+}
+</script>
+</body>
+</html>
